@@ -6,30 +6,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartLock"
         mc:Ignorable="d"
-        Title="Smart Lock" Height="350" Width="300">
-    
-    <Grid>
-        <fa:ImageAwesome x:Name="LockIcon" Icon="Lock" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Height="100">
+        Title="Smart Lock" Height="300" Width="250">
 
-            <fa:ImageAwesome.RenderTransform>
-                <ScaleTransform ScaleX="1" ScaleY="1" />
-            </fa:ImageAwesome.RenderTransform>
-        </fa:ImageAwesome>
+    <Grid Background="#d8ae5e">
+        <fa:ImageAwesome x:Name="LockIcon" Icon="Lock" Foreground="black" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Height="100"></fa:ImageAwesome>
 
-        <Button Content="Toggle Lock" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,250,0,0" Click="ToggleLockButton_Click"/>
-        <TextBlock x:Name="DeviceStatusTextBlock" Text="Lock Status: Locked" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,200,0,0"/>
+        <Button Content="Toggle Lock" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,200,0,0" Click="ToggleLockButton_Click"/>
+        <TextBlock x:Name="DeviceStatusTextBlock" Text="Lock Status: Locked" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,130,0,0"/>
     </Grid>
 
     <Window.Resources>
         <Storyboard x:Key="ColorChangesStoryBoard">
-            <ColorAnimation Storyboard.TargetName="LockIcon" Storyboard.TargetProperty="Foreground.Color" To="Green" Duration="0:0:0.5" AutoReverse="True"></ColorAnimation>
+            <ColorAnimation Storyboard.TargetName="LockIcon" Storyboard.TargetProperty="Foreground.Color" To="#f7efdf" Duration="0:0:0.5" AutoReverse="True"></ColorAnimation>
         </Storyboard>
-        
-        <Storyboard x:Key="ScaleStoryBoard">
-            <DoubleAnimation Storyboard.TargetName="LockIcon" Storyboard.TargetProperty="RenderTransform.ScaleX" To="1.1" Duration="0:0:0.5" AutoReverse="True"/>
-            <DoubleAnimation Storyboard.TargetName="LockIcon" Storyboard.TargetProperty="RenderTransform.ScaleY" To="1.1" Duration="0:0:0.5" AutoReverse="True"/>
-        </Storyboard>
-        
+
     </Window.Resources>
 
 </Window>
