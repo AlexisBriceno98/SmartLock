@@ -16,10 +16,14 @@
     </Grid>
 
     <Window.Resources>
-        <Storyboard x:Key="ColorChangesStoryBoard">
-            <ColorAnimation Storyboard.TargetName="LockIcon" Storyboard.TargetProperty="Foreground.Color" To="#f7efdf" Duration="0:0:0.5" AutoReverse="True"></ColorAnimation>
+        <Storyboard x:Key="UnlockColorChangeStoryBoard">
+            <ColorAnimation Storyboard.TargetName="LockIcon" Storyboard.TargetProperty="Foreground.Color" To="#f7efdf" Duration="0:0:0.5"/>
         </Storyboard>
 
+        <Storyboard x:Key="LockColorChangeStoryBoard">
+            <ColorAnimation Storyboard.TargetName="LockIcon" Storyboard.TargetProperty="Foreground.Color" To="Black" Duration="0:0:0.5"/>
+        </Storyboard>
     </Window.Resources>
+
 
 </Window>

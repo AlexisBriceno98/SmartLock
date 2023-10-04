@@ -25,13 +25,15 @@ public partial class MainWindow : Window
         if (LockIcon.Icon == FontAwesome.WPF.FontAwesomeIcon.Lock)
         {
             LockIcon.Icon = FontAwesome.WPF.FontAwesomeIcon.Unlock;
-            Storyboard colorChangeStoryboard = this.FindResource("ColorChangesStoryBoard") as Storyboard;
-            colorChangeStoryboard.Begin();
+            Storyboard unlockStoryboard = this.FindResource("UnlockColorChangeStoryBoard") as Storyboard;
+            unlockStoryboard.Begin();
             DeviceStatusTextBlock.Text = "Lock Status: Unlocked";
         }
         else
         {
             LockIcon.Icon = FontAwesome.WPF.FontAwesomeIcon.Lock;
+            Storyboard lockStoryboard = this.FindResource("LockColorChangeStoryBoard") as Storyboard;
+            lockStoryboard.Begin();
             DeviceStatusTextBlock.Text = "Lock Status: Locked";
         }
 
