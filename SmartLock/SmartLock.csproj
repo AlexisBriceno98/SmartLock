@@ -9,6 +9,11 @@
 
   <ItemGroup>
     <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
+    <PackageReference Include="Microsoft.Azure.Devices.Client" Version="1.42.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SmartLibrary\SmartLibrary.csproj" />
   </ItemGroup>
 
 </Project>

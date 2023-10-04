@@ -1,33 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Windows;
+using System.Windows.Media.Animation;
+using Microsoft.Azure.Devices.Client;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace SmartLock
+namespace SmartLock;
+
+public partial class MainWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public MainWindow()
     {
-        public MainWindow()
+        InitializeComponent();
+    }
+
+    private void ToggleLockButton_Click(object sender, RoutedEventArgs e)
+    {
+
+        Storyboard scaleStoryboard = this.FindResource("ScaleStoryBoard") as Storyboard;
+        scaleStoryboard.Begin();
+
+        if (LockIcon.Icon == FontAwesome.WPF.FontAwesomeIcon.Lock)
         {
-            InitializeComponent();
+            LockIcon.Icon = FontAwesome.WPF.FontAwesomeIcon.Unlock;
+            Storyboard colorChangeStoryboard = this.FindResource("ColorChangesStoryBoard") as Storyboard;
+            colorChangeStoryboard.Begin();
+            DeviceStatusTextBlock.Text = "Lock Status: Unlocked";
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        else
         {
-
+            LockIcon.Icon = FontAwesome.WPF.FontAwesomeIcon.Lock;
+            DeviceStatusTextBlock.Text = "Lock Status: Locked";
         }
     }
 }
