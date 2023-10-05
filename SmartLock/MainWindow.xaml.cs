@@ -21,41 +21,45 @@ public partial class MainWindow : Window
 
     private async void ToggleLockButton_Click(object sender, RoutedEventArgs e)
     {
-
-        if (LockIcon.Icon == FontAwesome.WPF.FontAwesomeIcon.Lock)
+        if (LockIcon.Text == "\uf023")
         {
-            LockIcon.Icon = FontAwesome.WPF.FontAwesomeIcon.Unlock;
-            Storyboard unlockStoryboard = this.FindResource("UnlockColorChangeStoryBoard") as Storyboard;
+            LockIcon.Text = "\uf09c";
+            Storyboard unlockStoryboard = (Storyboard)this.FindResource("UnlockColorChangeStoryBoard");
             unlockStoryboard.Begin();
             DeviceStatusTextBlock.Text = "Lock Status: Unlocked";
         }
         else
         {
-            LockIcon.Icon = FontAwesome.WPF.FontAwesomeIcon.Lock;
-            Storyboard lockStoryboard = this.FindResource("LockColorChangeStoryBoard") as Storyboard;
+            LockIcon.Text = "\uf023";
+            Storyboard lockStoryboard = (Storyboard)this.FindResource("LockColorChangeStoryBoard");
             lockStoryboard.Begin();
             DeviceStatusTextBlock.Text = "Lock Status: Locked";
         }
 
         await _deviceManager.SendTelemetryAsync();
+        await _deviceManager.ReportLockStatusAsync();
     }
 
-    private void CommandReceived(string command)
+    private async void CommandReceived(string command)
     {
-        this.Dispatcher.Invoke(() =>
+        await this.Dispatcher.InvokeAsync(async () =>
         {
             if (command == "unlock")
             {
-                LockIcon.Icon = FontAwesome.WPF.FontAwesomeIcon.Unlock;
-                Storyboard colorChangeStoryboard = this.FindResource("ColorChangesStoryBoard") as Storyboard;
-                colorChangeStoryboard.Begin();
+                LockIcon.Text = "\uf09c";
+                Storyboard unlockStoryboard = (Storyboard)this.FindResource("UnlockColorChangeStoryBoard");
+                unlockStoryboard.Begin();
                 DeviceStatusTextBlock.Text = "Lock Status: Unlocked";
             }
             else if (command == "lock")
             {
-                LockIcon.Icon = FontAwesome.WPF.FontAwesomeIcon.Lock;
+                LockIcon.Text = "\uf023";
+                Storyboard lockStoryboard = (Storyboard)this.FindResource("LockColorChangeStoryBoard");
+                lockStoryboard.Begin();
                 DeviceStatusTextBlock.Text = "Lock Status: Locked";
             }
+            await _deviceManager.SendTelemetryAsync();
+            await _deviceManager.ReportLockStatusAsync();
         });
     }
 }

@@ -5,7 +5,9 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartLock", "SmartLock\SmartLock.csproj", "{40E3A7F5-20B0-4F73-BFF2-86C62A371C17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartLibrary", "SmartLibrary\SmartLibrary.csproj", "{F0C7C11E-6B42-4B94-B450-C296C68477CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartLibrary", "SmartLibrary\SmartLibrary.csproj", "{F0C7C11E-6B42-4B94-B450-C296C68477CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlPanel", "ControlPanel\ControlPanel.csproj", "{F05725DE-6827-40B3-9EE4-2ADB2CD3EBA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,12 @@ Global
 		{F0C7C11E-6B42-4B94-B450-C296C68477CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0C7C11E-6B42-4B94-B450-C296C68477CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0C7C11E-6B42-4B94-B450-C296C68477CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F05725DE-6827-40B3-9EE4-2ADB2CD3EBA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F05725DE-6827-40B3-9EE4-2ADB2CD3EBA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F05725DE-6827-40B3-9EE4-2ADB2CD3EBA5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{F05725DE-6827-40B3-9EE4-2ADB2CD3EBA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F05725DE-6827-40B3-9EE4-2ADB2CD3EBA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F05725DE-6827-40B3-9EE4-2ADB2CD3EBA5}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

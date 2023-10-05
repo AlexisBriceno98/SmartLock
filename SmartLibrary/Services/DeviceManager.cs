@@ -1,6 +1,8 @@
 ﻿using Microsoft.Azure.Devices.Client;
+using Microsoft.Azure.Devices.Shared;
 using Newtonsoft.Json;
 using SmartLibrary.Models;
+using System.Diagnostics;
 using System.Text;
 
 namespace SmartLibrary.Services;
@@ -72,14 +74,33 @@ public class DeviceManager
 
     public async Task SendTelemetryAsync()
     {
-        var telemetryData = new
+        while (true)
         {
-            DeviceId = _config.DeviceId,
-            Status = _config.AllowSending ? "Unlocked" : "Locked",
-            Timestamp = DateTime.Now,
-        };
+            try
+            {
+                var telemetryData = new
+                {
+                    deviceId = _config.DeviceId,
+                    state = _config.AllowSending ? "Unlocked" : "Locked",
+                    timestamp = DateTime.Now,
+                };
 
-        var messageString = JsonConvert.SerializeObject(telemetryData);
-        await _iotHubService.SendMessageAsync(messageString);
+                var messageString = JsonConvert.SerializeObject(telemetryData);
+                await _iotHubService.SendMessageAsync(messageString);
+
+                await Task.Delay(_config.TelemetryInterval);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+    }
+
+    public async Task ReportLockStatusAsync()
+    {
+        var twinProperties = new TwinCollection();
+        twinProperties["LockStatus"] = _config.AllowSending ? "Unlocked" : "Locked";
+        await _client.UpdateReportedPropertiesAsync(twinProperties);
     }
 }
