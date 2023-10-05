@@ -1,4 +1,4 @@
-﻿namespace SmartLibrary.Models;
+﻿namespace SmartLibrary.MVVM.Models;
 
 public class DirectMethodDataResponse
 {

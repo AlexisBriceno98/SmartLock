@@ -1,24 +1,26 @@
-﻿namespace ControlPanel
+﻿using ControlPanel.Views;
+
+namespace ControlPanel
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
-
         public MainPage()
         {
             InitializeComponent();
-        }
 
-        private void OnCounterClicked(object sender, EventArgs e)
-        {
-            count++;
+            var welcomePage = new WelcomePage();
+            var getStartedPage = new GetStartedPage();
+            var dateAndTimePage = new DateAndTimePage();
+            var weatherInfoPage = new WeatherInfoPage();
+            var deviceListPage = new DeviceListPage();
+            var settingsPage = new SettingsPage();
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            MainLayout.Children.Add(welcomePage);
+            MainLayout.Children.Add(getStartedPage);
+            MainLayout.Children.Add(dateAndTimePage.Content);
+            MainLayout.Children.Add(weatherInfoPage.Content);
+            MainLayout.Children.Add(deviceListPage.Content);
+            MainLayout.Children.Add(settingsPage.Content);
         }
     }
 }

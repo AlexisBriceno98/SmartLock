@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartLock", "SmartLock\Smar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartLibrary", "SmartLibrary\SmartLibrary.csproj", "{F0C7C11E-6B42-4B94-B450-C296C68477CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlPanel", "ControlPanel\ControlPanel.csproj", "{F05725DE-6827-40B3-9EE4-2ADB2CD3EBA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControlPanel", "ControlPanel\ControlPanel.csproj", "{F05725DE-6827-40B3-9EE4-2ADB2CD3EBA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

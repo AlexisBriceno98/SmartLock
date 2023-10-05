@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ControlPanel.Views.WelcomePage">
+
+    <StackLayout VerticalOptions="Center" Spacing="20">
+        <Image x:Name="infinity" Source="infinity.png" WidthRequest="200" HeightRequest="200"/>
+        <Label Text="Welcome to your Smart Home" FontSize="Large" HorizontalOptions="CenterAndExpand"/>
+        <Button Text="Get Started" Clicked="OnGetStartedClicked"/>
+        <Button Text="Settings" Clicked="OnSettingsClicked"/>
+    </StackLayout>
+    
+</ContentPage>

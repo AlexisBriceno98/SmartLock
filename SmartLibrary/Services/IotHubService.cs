@@ -1,5 +1,5 @@
 ﻿using Microsoft.Azure.Devices.Client;
-using SmartLibrary.Models;
+using SmartLibrary.MVVM.Models;
 using System.Diagnostics;
 using System.Text;
 

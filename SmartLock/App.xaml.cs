@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SmartLibrary.Models;
+using SmartLibrary.MVVM.Models;
 using SmartLibrary.Services;
 using System.Windows;
 

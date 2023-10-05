@@ -1,7 +1,7 @@
 ﻿using Microsoft.Azure.Devices.Client;
 using Microsoft.Azure.Devices.Shared;
 using Newtonsoft.Json;
-using SmartLibrary.Models;
+using SmartLibrary.MVVM.Models;
 using System.Diagnostics;
 using System.Text;
 
