@@ -4,11 +4,13 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:ControlPanel"
-    Shell.FlyoutBehavior="Disabled">
+    xmlns:views="clr-namespace:ControlPanel.Views"
+    Shell.FlyoutBehavior="Disabled"
+    >
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="Welome to you Smart Home"
+        ContentTemplate="{DataTemplate views:WelcomePage}"
+        Route="WelcomePage" />
 
 </Shell>

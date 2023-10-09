@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using ControlPanel.Views;
-using SmartLibrary.MVVM.ViewModels;
+using ControlPanel.MVVM.ViewModels;
 
 namespace ControlPanel
 {

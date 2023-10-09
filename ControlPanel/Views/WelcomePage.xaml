@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ControlPanel.Views.WelcomePage">
+             x:Class="ControlPanel.Views.WelcomePage"
+             Shell.NavBarIsVisible="False">
 
     <StackLayout VerticalOptions="Center" Spacing="20">
-        <Image x:Name="infinity" Source="infinity.png" WidthRequest="200" HeightRequest="200"/>
-        <Label Text="Welcome to your Smart Home" FontSize="Large" HorizontalOptions="CenterAndExpand"/>
-        <Button Text="Get Started" Clicked="OnGetStartedClicked"/>
-        <Button Text="Settings" Clicked="OnSettingsClicked"/>
+        <Image x:Name="infinity" Source="infinity.png" Margin="0, -100, 0, 0"/>
+        <Label Text="Welcome to your Smart Home" Margin="0, -50, 0, 0" FontSize="17" HorizontalOptions="CenterAndExpand" TextColor="#D8AF5F"/>
+        <Button Text="Get Started" Clicked="OnGetStartedClicked" BackgroundColor="#D8AF5F" TextColor="Black"
+                CornerRadius="10" Margin="60, 10, 60, 0"/>
+        <Button Text="Settings" Clicked="OnSettingsClicked" BackgroundColor="#D8AF5F" TextColor="Black"
+                CornerRadius="10" Margin="60, 5, 60, 0"/>
     </StackLayout>
     
 </ContentPage>
