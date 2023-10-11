@@ -1,4 +1,5 @@
-﻿using ControlPanel.Views;
+﻿using ControlPanel.MVVM.Views;
+using ControlPanel.Views;
 
 namespace ControlPanel
 {
@@ -10,6 +11,8 @@ namespace ControlPanel
 
             Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
             Routing.RegisterRoute(nameof(GetStartedPage), typeof(GetStartedPage));
+            Routing.RegisterRoute(nameof(DeviceListPage), typeof(DeviceListPage));
+            Routing.RegisterRoute(nameof(RegisterDevicePage), typeof(RegisterDevicePage));
         }
     }
 }

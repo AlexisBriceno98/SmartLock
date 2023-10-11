@@ -13,11 +13,11 @@
 
         <Grid Grid.Row="0" Grid.ColumnSpan="2" ColumnDefinitions="*,*" Margin="0, 0, 0, 0">
             <Button Command="{Binding GoToSettingsCommand}" Grid.Column="1" Text="&#xf013;" TextColor="{StaticResource Primary}" HorizontalOptions="End" VerticalOptions="Center" Style="{StaticResource NavigationButton}"></Button>
-
+            <Button Command="{Binding GoBackCommand}" Grid.Column="0" Text="&#xf053;" TextColor="{StaticResource Primary}" HorizontalOptions="Start" VerticalOptions="Center" Style="{StaticResource NavigationButton}"></Button>
         </Grid>
 
         <Frame Grid.Row="1" Grid.ColumnSpan="2" Padding="0" BorderColor="Transparent">
-            <Image Source="getstartedimage.png" Aspect="AspectFill"></Image>
+            <Image Source="getstartedimage.png" Aspect="AspectFill" Opacity="0.30"></Image>
         </Frame>
 
         <Grid Grid.Row="2" Grid.ColumnSpan="2" ColumnDefinitions="*,*">
@@ -25,7 +25,7 @@
 
             <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center">
                 <HorizontalStackLayout.GestureRecognizers>
-                    <TapGestureRecognizer NumberOfTapsRequired="1" />
+                    <TapGestureRecognizer Command="{Binding GoToDeviceListCommand}" NumberOfTapsRequired="1" />
                 </HorizontalStackLayout.GestureRecognizers>
 
                 <Label Text="All Devices" ></Label>
@@ -33,7 +33,16 @@
             </HorizontalStackLayout>
         </Grid>
 
-        <Frame Grid.Row="3" Grid.Column="0"></Frame>
+        <Frame Grid.Row="3" Grid.Column="0" BorderColor="Transparent" Padding="12">
+            <Grid RowDefinitions="auto, *" ColumnDefinitions="*,*">
+                <Label Grid.Row="0" Grid.Column="0" Text="&#xf023;" FontSize="36" FontFamily="FontAwesomeRegular" VerticalOptions="Start"/>
+                <Switch Grid.Row="0" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Start" Toggled="Switch_Toggled"></Switch>
+                <VerticalStackLayout Grid.Row="1" Grid.ColumnSpan="2">
+                    <Label Text="Galapagos Inc©" FontSize="8" TextColor="{StaticResource Gray300}" />
+                    <Label Text="Smart Lock™" FontSize="15"/>
+                </VerticalStackLayout>
+            </Grid>
+        </Frame>
         <Frame Grid.Row="3" Grid.Column="1"></Frame>
         <Label Grid.Row="4" Grid.ColumnSpan="2" Text="Favorite Device"></Label>
         <Frame Grid.Row="5" Grid.ColumnSpan="2"></Frame>

@@ -1,32 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="ControlPanel.Views.DeviceListPage"
              xmlns:view="clr-namespace:ControlPanel.Views"
              xmlns:viewModels="clr-namespace:ControlPanel.MVVM.ViewModels"
-             Title="DeviceListPage">
+             x:DataType="viewModels:DeviceListViewModel"
+             Title="DeviceListPage"
+             Shell.NavBarIsVisible="False">
+
+
+
+    <Grid RowDefinitions="auto, *" Padding="10" VerticalOptions="Start">
+        <Button Grid.Row="0" Command="{Binding GoBackCommand}" Text="&#xf00d;" Style="{StaticResource NavigationButton}" HorizontalOptions="End" VerticalOptions="Start"></Button>
+
+        <VerticalStackLayout Grid.Row="1" VerticalOptions="Start">
+            <Label Text="All Devices"/>
+        </VerticalStackLayout>
     
-    <CollectionView Grid.Row="2" ItemsSource="{Binding Devices}">
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <Grid Padding="10" ColumnDefinitions="Auto, *, Auto">
-
-                    <!-- Device Status Indicator -->
-                    <Frame WidthRequest="10" HeightRequest="10" CornerRadius="5" HorizontalOptions="Center" VerticalOptions="Center"
-                       BackgroundColor="{Binding IsActive, Converter={StaticResource BoolToColorConverter}}">
-                    </Frame>
-
-                    <!-- Device Name -->
-                    <Label Text="{Binding DeviceId}" FontSize="Medium" VerticalOptions="Center" Grid.Column="1" Margin="10,0"/>
-
-                    <!-- Toggle Button -->
-                    <Button Text="{Binding IsActive, Converter={StaticResource BoolToToggleTextConverter}}" 
-                        Command="{Binding BindingContext.ToggleDeviceCommand, Source={x:Reference Name=ThisPage}}" 
-                        CommandParameter="{Binding}" 
-                        Grid.Column="2"/>
-                </Grid>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
-
+    </Grid>
 </ContentPage>

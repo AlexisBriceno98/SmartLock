@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using ControlPanel.Views;
 using ControlPanel.MVVM.ViewModels;
+using ControlPanel.MVVM.Views;
 
 namespace ControlPanel
 {
@@ -35,9 +36,13 @@ namespace ControlPanel
             builder.Services.AddSingleton<WeatherInfoViewModel>();
 
             builder.Services.AddSingleton<DeviceListPage>();
+            builder.Services.AddSingleton<DeviceListViewModel>();
 
             builder.Services.AddSingleton<SettingsPage>();
             builder.Services.AddSingleton<SettingsViewModel>();
+
+            builder.Services.AddSingleton<RegisterDevicePage>();
+            builder.Services.AddSingleton<RegisterDeviceViewModel>();
 
             return builder.Build();
         }

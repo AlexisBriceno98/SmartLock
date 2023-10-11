@@ -10,5 +10,12 @@ namespace ControlPanel
             InitializeComponent();
             BindingContext = viewModel;
         }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            var viewModel = BindingContext as MainViewModel;
+            await viewModel?.CheckConfiguration();
+        }
     }
 }
