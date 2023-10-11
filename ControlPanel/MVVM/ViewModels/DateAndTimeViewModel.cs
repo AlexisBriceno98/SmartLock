@@ -1,6 +1,6 @@
 ﻿namespace ControlPanel.MVVM.ViewModels;
 
-public class DateAndTimeViewModel
+public class DateAndTimeViewModel 
 {
 
 }

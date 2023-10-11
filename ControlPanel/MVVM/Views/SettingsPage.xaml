@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="ControlPanel.Views.SettingsPage"
+             xmlns:views="clr-namespace:ControlPanel.Views"
+             xmlns:viewModels="clr-namespace:ControlPanel.MVVM.ViewModels"
+             x:DataType="viewModels:SettingsViewModel"
+             Title="SettingsPage"
+             Shell.NavBarIsVisible="False">
+
+    <Grid ColumnDefinitions="*,*" RowDefinitions="1*, 3*, auto, 2*, auto, 2*" ColumnSpacing="20" RowSpacing="10" Padding="10">
+
+        <Grid Grid.Row="0" Grid.ColumnSpan="2" ColumnDefinitions="*,*" Margin="0, 0, 0, 0">
+            <Button Command="{Binding GoBackCommand}" Grid.Column="1" Text="&#xf00d;" TextColor="{StaticResource Primary}" HorizontalOptions="End" VerticalOptions="Start" Style="{StaticResource NavigationButton}"></Button>
+        </Grid>
+
+      </Grid>
+</ContentPage>

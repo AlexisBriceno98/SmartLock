@@ -5,12 +5,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:ControlPanel"
     xmlns:views="clr-namespace:ControlPanel.Views"
-    Shell.FlyoutBehavior="Disabled"
-    >
+    Shell.FlyoutBehavior="Disabled">
 
     <ShellContent
         Title="Welome to you Smart Home"
-        ContentTemplate="{DataTemplate views:WelcomePage}"
-        Route="WelcomePage" />
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
 
 </Shell>
