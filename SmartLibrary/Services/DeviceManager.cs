@@ -10,24 +10,24 @@ namespace SmartLibrary.Services;
 
 public class DeviceManager
 {
-    //Remember
-    //private readonly DeviceConfigurationModel _config;
-    //Listen
+    
+    private readonly DeviceConfigurationModel _config;
+    
     private readonly DeviceClient _client;
     private readonly IotHubService _iotHubService;
     private readonly ServiceClient _serviceClient;
 
     public event Action<string>? OnCommandReceived;
-    public DeviceManager(IotHubService iotHubService)
+    public DeviceManager(IotHubService iotHubService, DeviceConfigurationModel config)
     {
         _iotHubService = iotHubService;
-        //_config = config;
+        _config = config;
         _client = DeviceClient.CreateFromConnectionString("HostName=alexis-iothub.azure-devices.net;DeviceId=SmartLock;SharedAccessKey=d7soyFPPoqoVfRzZzrpyvwUaKY3GmU0HuAIoTH+NP0U=");
         _serviceClient = ServiceClient.CreateFromConnectionString("HostName=alexis-iothub.azure-devices.net;DeviceId=SmartLock;SharedAccessKey=d7soyFPPoqoVfRzZzrpyvwUaKY3GmU0HuAIoTH+NP0U=");
         Task.FromResult(StartAsync());
     }
 
-    //public bool AllowSending() => _config.AllowSending;
+    public bool AllowSending() => _config.AllowSending;
 
     private async Task StartAsync()
     {
@@ -46,14 +46,14 @@ public class DeviceManager
         {
             case "unlock":
                 {
-                    //_config.AllowSending = true;
+                    _config.AllowSending = true;
                     OnCommandReceived?.Invoke("unlock");
                     break;
                 }
 
             case "lock":
                 {
-                    //_config.AllowSending = false;
+                    _config.AllowSending = false;
                     OnCommandReceived?.Invoke("lock");
                     break;
                 }
@@ -71,39 +71,22 @@ public class DeviceManager
 
         }
 
+        await ReportLockStatusAsync();
+
         return new MethodResponse(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(res)), 200);
     }
 
-    //public async Task SendTelemetryAsync()
-    //{
-    //    while (true)
-    //    {
-    //        try
-    //        {
-    //            var telemetryData = new
-    //            {
-    //                deviceId = _config.DeviceId,
-    //                state = _config.AllowSending ? "Unlocked" : "Locked",
-    //                timestamp = DateTime.Now,
-    //            };
+    public async Task ReportLockStatusAsync()
+    {
+        var twinProperties = new TwinCollection();
+        twinProperties["LockStatus"] = _config.AllowSending ? "Unlocked" : "Locked";
+        await _client.UpdateReportedPropertiesAsync(twinProperties);
+    }
 
-    //            var messageString = JsonConvert.SerializeObject(telemetryData);
-    //            await _iotHubService.SendMessageAsync(messageString);
-
-    //            await Task.Delay(_config.TelemetryInterval);
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            Debug.WriteLine(ex.Message);
-    //        }
-    //    }
-    //}
-
-    //public async Task ReportLockStatusAsync()
-    //{
-    //    var twinProperties = new TwinCollection();
-    //    twinProperties["LockStatus"] = _config.AllowSending ? "Unlocked" : "Locked";
-    //    await _client.UpdateReportedPropertiesAsync(twinProperties);
-    //}
+    public async Task<string> GetLockStatusAsync()
+    {
+        var twin = await _client.GetTwinAsync();
+        return twin.Properties.Reported["LockStatus"];
+    }
 
 }

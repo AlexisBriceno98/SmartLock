@@ -4,6 +4,7 @@ using ControlPanel.MVVM.ViewModels;
 using ControlPanel.MVVM.Views;
 using SmartLibrary.Services;
 using SmartLibrary.MVVM.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace ControlPanel
 {
@@ -48,7 +49,12 @@ namespace ControlPanel
 
             builder.Services.AddSingleton<DeviceManager>();
             builder.Services.AddSingleton<IotHubService>();
-
+            builder.Services.AddSingleton<DeviceConfigurationModel>(sp =>
+            {
+                var configuration = sp.GetRequiredService<IConfiguration>();
+                var connectionString = configuration.GetConnectionString("Device");
+                return new DeviceConfigurationModel(connectionString);
+            });
 
 
             return builder.Build();

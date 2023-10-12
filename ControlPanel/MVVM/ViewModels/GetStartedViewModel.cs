@@ -15,10 +15,8 @@ public partial class GetStartedViewModel : ObservableObject
 {
 
     private ObservableCollection<DeviceItemModel> _devices;
-    private readonly WeatherService _weatherService = new WeatherService();
     private readonly DeviceManager _deviceManager;
     private readonly IotHubService _iotHubService;
-    public double Temperature { get; private set; }
     public ObservableCollection<DeviceItemModel> Devices
     {
         get => _devices;
@@ -29,6 +27,15 @@ public partial class GetStartedViewModel : ObservableObject
     {
         _deviceManager = deviceManager;
         _iotHubService = iotHubService;
+        InitializeAsync();
+    }
+
+
+
+    private async Task InitializeAsync()
+    {
+        var lockStatus = await _deviceManager.GetLockStatusAsync();
+        IsDeviceConnected = lockStatus == "Locked";
     }
 
     [RelayCommand]
@@ -71,15 +78,17 @@ public partial class GetStartedViewModel : ObservableObject
     }
 
     public ICommand ToggleStateCommand { get; private set; }
+
     public async void ToggleState(ToggledEventArgs e)
     {
         bool isToggled = e.Value;
         var deviceId = "SmartLock";
-        string methodName = isToggled ? "unlock" : "lock";
+        string commandName = isToggled ? "unlock" : "lock";
         try
         {
-            await _iotHubService.SendCommandAsync(deviceId, methodName);
+            await _iotHubService.SendCommandAsync(deviceId, commandName);
             IsDeviceConnected = isToggled;  // Only update if successful
+            await _deviceManager.ReportLockStatusAsync();
         }
         catch (Microsoft.Azure.Devices.Common.Exceptions.DeviceNotFoundException)
         {
