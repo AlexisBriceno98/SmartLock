@@ -8,18 +8,15 @@
         Title="Smart Lock" Height="300" Width="250">
 
     <Grid Background="#d8ae5e">
-        <TextBlock x:Name="LockIcon" Text="&#xf023;" FontFamily="{StaticResource FontAwesome-Solid}" Foreground="black" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="100"/>
-        <Button Content="Toggle Lock" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,200,0,0" Click="ToggleLockButton_Click"/>
+        <TextBlock x:Name="ConnectivityStatus"></TextBlock>
+        <TextBlock x:Name="LockIcon" Text="&#xf023;" FontFamily="{StaticResource FontAwesome-Solid}" Foreground="black" VerticalAlignment=
+                   "Center" HorizontalAlignment="Center" FontSize="100"/>
         <TextBlock x:Name="DeviceStatusTextBlock" Text="Lock Status: Locked" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,197,0,0"/>
     </Grid>
 
     <Window.Resources>
-        <Storyboard x:Key="UnlockColorChangeStoryBoard">
-            <ColorAnimation Storyboard.TargetName="LockIcon" Storyboard.TargetProperty="Foreground.Color" To="#f7efdf" Duration="0:0:0.5"/>
-        </Storyboard>
-
-        <Storyboard x:Key="LockColorChangeStoryBoard">
-            <ColorAnimation Storyboard.TargetName="LockIcon" Storyboard.TargetProperty="Foreground.Color" To="Black" Duration="0:0:0.5"/>
+        <Storyboard x:Key="LockChangeStoryBoard">
+            <ColorAnimation Storyboard.TargetName="LockIcon" Storyboard.TargetProperty="Foreground.Color" To="White" Duration="0:0:0.5"/>
         </Storyboard>
     </Window.Resources>
 

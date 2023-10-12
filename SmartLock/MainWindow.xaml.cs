@@ -4,64 +4,54 @@ using Microsoft.Azure.Devices.Client;
 using System.Text;
 using SmartLibrary.Services;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using System.Diagnostics;
 
 namespace SmartLock;
 
 public partial class MainWindow : Window
 {
-    private readonly IotHubService _iotHubService;
+    private readonly NetworkManager _networkManager;
     private readonly DeviceManager _deviceManager;
-    public MainWindow(IotHubService iotHubService, DeviceManager deviceManager)
+    public MainWindow(NetworkManager networkManager, DeviceManager deviceManager)
     {
         InitializeComponent();
-        _iotHubService = iotHubService;
+        _networkManager = networkManager;
         _deviceManager = deviceManager;
-        _deviceManager.OnCommandReceived += CommandReceived;
+
+        // Subscribe to the event
+        _deviceManager.OnCommandReceived += (command) =>
+        {
+            Debug.WriteLine($"Command received: {command}");
+            UpdateLockState();
+        };
+
+        // Only start the CheckConnectivityAsync task on initialization
+        Task.Run(CheckConnectivityAsync);
     }
-
-
-
-    private async void ToggleLockButton_Click(object sender, RoutedEventArgs e)
+    private void UpdateLockState()
     {
-        if (LockIcon.Text == "\uf023")
+        this.Dispatcher.Invoke(() =>
         {
-            LockIcon.Text = "\uf09c";
-            Storyboard unlockStoryboard = (Storyboard)this.FindResource("UnlockColorChangeStoryBoard");
-            unlockStoryboard.Begin();
-            DeviceStatusTextBlock.Text = "Lock Status: Unlocked";
-        }
-        else
-        {
-            LockIcon.Text = "\uf023";
-            Storyboard lockStoryboard = (Storyboard)this.FindResource("LockColorChangeStoryBoard");
-            lockStoryboard.Begin();
-            DeviceStatusTextBlock.Text = "Lock Status: Locked";
-        }
+            Storyboard lockStoryboard = (Storyboard)this.FindResource("LockChangeStoryBoard");
 
-        //await _deviceManager.SendTelemetryAsync();
-        //await _deviceManager.ReportLockStatusAsync();
-    }
-
-    private async void CommandReceived(string command)
-    {
-        await this.Dispatcher.InvokeAsync(async () =>
-        {
-            if (command == "unlock")
+            if (_deviceManager.AllowSending())
             {
-                LockIcon.Text = "\uf09c";
-                Storyboard unlockStoryboard = (Storyboard)this.FindResource("UnlockColorChangeStoryBoard");
-                unlockStoryboard.Begin();
-                DeviceStatusTextBlock.Text = "Lock Status: Unlocked";
-            }
-            else if (command == "lock")
-            {
-                LockIcon.Text = "\uf023";
-                Storyboard lockStoryboard = (Storyboard)this.FindResource("LockColorChangeStoryBoard");
                 lockStoryboard.Begin();
-                DeviceStatusTextBlock.Text = "Lock Status: Locked";
             }
-            //await _deviceManager.SendTelemetryAsync();
-            //await _deviceManager.ReportLockStatusAsync();
+            else
+            {
+                LockIcon.Foreground = new SolidColorBrush(Colors.Black);
+            }
         });
+    }
+
+    private async Task CheckConnectivityAsync()
+    {
+        while (true)
+        {
+            ConnectivityStatus.Text = await _networkManager.CheckConnectivityAsync();
+            await Task.Delay(1000);
+        }
     }
 }

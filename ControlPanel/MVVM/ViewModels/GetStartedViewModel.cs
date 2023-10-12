@@ -30,8 +30,6 @@ public partial class GetStartedViewModel : ObservableObject
         InitializeAsync();
     }
 
-
-
     private async Task InitializeAsync()
     {
         var lockStatus = await _deviceManager.GetLockStatusAsync();
@@ -83,7 +81,7 @@ public partial class GetStartedViewModel : ObservableObject
     {
         bool isToggled = e.Value;
         var deviceId = "SmartLock";
-        string commandName = isToggled ? "unlock" : "lock";
+        string commandName = isToggled ? "lock" : "unlock";
         try
         {
             await _iotHubService.SendCommandAsync(deviceId, commandName);

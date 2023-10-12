@@ -23,7 +23,7 @@ public class DeviceManager
         _iotHubService = iotHubService;
         _config = config;
         _client = DeviceClient.CreateFromConnectionString("HostName=alexis-iothub.azure-devices.net;DeviceId=SmartLock;SharedAccessKey=d7soyFPPoqoVfRzZzrpyvwUaKY3GmU0HuAIoTH+NP0U=");
-        _serviceClient = ServiceClient.CreateFromConnectionString("HostName=alexis-iothub.azure-devices.net;DeviceId=SmartLock;SharedAccessKey=d7soyFPPoqoVfRzZzrpyvwUaKY3GmU0HuAIoTH+NP0U=");
+        _serviceClient = ServiceClient.CreateFromConnectionString("HostName=alexis-iothub.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=c1zz9Sh4y567gvBU+EUvTKXV8ktuO+nfaAIoTPv14LE=");
         Task.FromResult(StartAsync());
     }
 
@@ -37,6 +37,7 @@ public class DeviceManager
 
     private async Task<MethodResponse> DirectMethodDefaultCallback(MethodRequest req, object userContext)
     {
+        Debug.WriteLine($"Direct method {req.Name} called.");
         var res = new DirectMethodDataResponse
         {
             Message = $"Executed Method {req.Name} successfully.",
