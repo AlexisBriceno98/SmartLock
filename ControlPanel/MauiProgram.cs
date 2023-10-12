@@ -2,6 +2,8 @@
 using ControlPanel.Views;
 using ControlPanel.MVVM.ViewModels;
 using ControlPanel.MVVM.Views;
+using SmartLibrary.Services;
+using SmartLibrary.MVVM.Models;
 
 namespace ControlPanel
 {
@@ -43,6 +45,11 @@ namespace ControlPanel
 
             builder.Services.AddSingleton<RegisterDevicePage>();
             builder.Services.AddSingleton<RegisterDeviceViewModel>();
+
+            builder.Services.AddSingleton<DeviceManager>();
+            builder.Services.AddSingleton<IotHubService>();
+
+
 
             return builder.Build();
         }

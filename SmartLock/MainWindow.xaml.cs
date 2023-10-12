@@ -19,6 +19,8 @@ public partial class MainWindow : Window
         _deviceManager.OnCommandReceived += CommandReceived;
     }
 
+
+
     private async void ToggleLockButton_Click(object sender, RoutedEventArgs e)
     {
         if (LockIcon.Text == "\uf023")
@@ -36,8 +38,8 @@ public partial class MainWindow : Window
             DeviceStatusTextBlock.Text = "Lock Status: Locked";
         }
 
-        await _deviceManager.SendTelemetryAsync();
-        await _deviceManager.ReportLockStatusAsync();
+        //await _deviceManager.SendTelemetryAsync();
+        //await _deviceManager.ReportLockStatusAsync();
     }
 
     private async void CommandReceived(string command)
@@ -58,8 +60,8 @@ public partial class MainWindow : Window
                 lockStoryboard.Begin();
                 DeviceStatusTextBlock.Text = "Lock Status: Locked";
             }
-            await _deviceManager.SendTelemetryAsync();
-            await _deviceManager.ReportLockStatusAsync();
+            //await _deviceManager.SendTelemetryAsync();
+            //await _deviceManager.ReportLockStatusAsync();
         });
     }
 }

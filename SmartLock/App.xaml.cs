@@ -24,7 +24,7 @@ namespace SmartLock
                 services.AddSingleton<DeviceManager>();
 
                 var connectionString = config.Configuration.GetSection("IoTHub:ConnectionString").Value;
-                services.AddSingleton(new DeviceConfigurationModel(connectionString));
+                services.AddSingleton(new DeviceConfigurationModel(config.Configuration.GetConnectionString("Device")!));
 
                 services.AddSingleton<IotHubService>();
 
@@ -40,5 +40,6 @@ namespace SmartLock
 
             base.OnStartup(e);
         }
+
     }
 }

@@ -1,5 +1,4 @@
 ﻿namespace SmartLibrary.MVVM.Models;
-
 public class DeviceConfigurationModel
 {
     private readonly string _connectionString;

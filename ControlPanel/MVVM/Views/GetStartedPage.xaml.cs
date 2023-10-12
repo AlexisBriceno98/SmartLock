@@ -1,5 +1,5 @@
-using ControlPanel.MVVM.Models;
 using ControlPanel.MVVM.ViewModels;
+using SmartLibrary.MVVM.Models;
 using System.Runtime.InteropServices;
 
 namespace ControlPanel.Views;
@@ -12,16 +12,9 @@ public partial class GetStartedPage : ContentPage
 		BindingContext = viewModel;
 	}
 
-    private void Switch_Toggled(object sender, ToggledEventArgs e)
+    private void OnSwitchToggled(object sender, ToggledEventArgs e)
     {
-		var _switch = (Switch)sender;
-		var iotDevice = _switch.BindingContext as IotDevice;
-
-		var viewModel = BindingContext as GetStartedViewModel;
-        if (iotDevice == null)
-        {
-            viewModel.ToggleStateCommand.Execute(iotDevice);
-        }
-
+        var viewModel = (GetStartedViewModel)BindingContext;
+        viewModel.ToggleState(e);
     }
 }

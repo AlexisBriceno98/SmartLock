@@ -2,44 +2,34 @@
 using CommunityToolkit.Mvvm.Input;
 using ControlPanel.MVVM.Views;
 using ControlPanel.Views;
+using Microsoft.Azure.Devices;
 using SmartLibrary.Device.Models;
 using SmartLibrary.MVVM.Models;
 using SmartLibrary.Services;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace ControlPanel.MVVM.ViewModels;
 
 public partial class GetStartedViewModel : ObservableObject
 {
 
-    //private ObservableCollection<DeviceItemModel> _devices;
-    //private readonly WeatherService _weatherService = new WeatherService();
-    //public double Temperature { get; private set; }
-    //public ObservableCollection<DeviceItemModel> Devices
-    //{
-    //    get => _devices;
-    //    set => SetProperty(ref _devices, value);
-    //}
+    private ObservableCollection<DeviceItemModel> _devices;
+    private readonly WeatherService _weatherService = new WeatherService();
+    private readonly DeviceManager _deviceManager;
+    private readonly IotHubService _iotHubService;
+    public double Temperature { get; private set; }
+    public ObservableCollection<DeviceItemModel> Devices
+    {
+        get => _devices;
+        set => SetProperty(ref _devices, value);
+    }
 
-    //public GetStartedViewModel()
-    //{
-    //    Devices = new ObservableCollection<DeviceItemModel>
-    //    {
-    //        new DeviceItemModel {DeviceId = "1", DeviceType = "Lock", Vendor = "Alexis", Location = "Entrance", IsActive = true},
-    //    };
-
-    //    LoadWeatherAsync();
-    //}
-
-    //public async Task LoadWeatherAsync()
-    //{
-    //    var weather = await _weatherService.GetWeatherAsync("Stockholm");
-    //    Temperature = weather.Main.Temp;
-    //    OnPropertyChanged(nameof(Temperature));
-    //}
-
-    //public string CurrentDate => DateTime.Now.ToString("ddd, MMMM dd, yyyy");
-    //public string CurrentTime => DateTime.Now.ToString("h:mm tt");
+    public GetStartedViewModel(DeviceManager deviceManager, IotHubService iotHubService)
+    {
+        _deviceManager = deviceManager;
+        _iotHubService = iotHubService;
+    }
 
     [RelayCommand]
     async Task GoToSettings()
@@ -59,9 +49,47 @@ public partial class GetStartedViewModel : ObservableObject
         await Shell.Current.GoToAsync("..");
     }
 
-    [RelayCommand]
-    void ToggleState(object obj)
+    private string _connectionStatusText;
+    public string ConnectionStatusText
     {
-        //send direct method message to deviceId
+        get => _connectionStatusText;
+        set => SetProperty(ref _connectionStatusText, value);
+    }
+
+    private bool _isConnectionStatusVisible;
+    public bool IsConnectionStatusVisible
+    {
+        get => _isConnectionStatusVisible;
+        set => SetProperty(ref _isConnectionStatusVisible, value);
+    }
+
+    private bool _isDeviceConnected;
+    public bool IsDeviceConnected
+    {
+        get => _isDeviceConnected;
+        set => SetProperty(ref _isDeviceConnected, value);
+    }
+
+    public ICommand ToggleStateCommand { get; private set; }
+    public async void ToggleState(ToggledEventArgs e)
+    {
+        bool isToggled = e.Value;
+        var deviceId = "SmartLock";
+        string methodName = isToggled ? "unlock" : "lock";
+        try
+        {
+            await _iotHubService.SendCommandAsync(deviceId, methodName);
+            IsDeviceConnected = isToggled;  // Only update if successful
+        }
+        catch (Microsoft.Azure.Devices.Common.Exceptions.DeviceNotFoundException)
+        {
+            IsDeviceConnected = false; // Reset to off if not successful
+            ConnectionStatusText = "Device Not Connected";
+            IsConnectionStatusVisible = true;
+
+            await Task.Delay(3000);
+
+            IsConnectionStatusVisible = false;
+        }
     }
 }

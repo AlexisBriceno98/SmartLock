@@ -21,7 +21,7 @@ public partial class MainViewModel : ObservableObject
     }
 
     [ObservableProperty]
-    private bool isConfigured;
+    private bool isConfigured = true ;
     public async Task CheckConfiguration()
     {
         if (!isConfigured)
